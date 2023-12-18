@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style media="screen">
+      .wrap {
+            position: relative;
+            display: inline-block;
+          }
+
+      .title{
+        background:rgba(255, 0, 0, 0.7) ;
+        padding: 20px;
+        position: absolute;
+        bottom: 0;
+        left:0;
+        right:0;
+        color: white;
+        font-size: 20px
+      }
+    </style>
+    <script type="text/javascript">
+      var YT = {
+    PlayerState: {
+        ENDED: 0,
+        PLAYING: 1,
+        PAUSED: 2,
+        BUFFERING: 3,
+        CUED: 4
+    }
+};
+
+function embedScript() {
+    var tag = document.createElement('script');
+
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+embedScript();
+
+var player = new Video();
+function onYouTubeIframeAPIReady() {
+		var videoUrl = document.querySelector('#player').dataset.src;
+    player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: videoUrl,
+        playerVars: {'rel': 0},
+        events: {
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerStateChange(event) {
+    var overlay = document.querySelector('.title');
+    switch (event.data) {
+        case YT.PlayerState.ENDED:
+            //console.log('ENDED');
+            break;
+        case YT.PlayerState.PAUSED:
+            overlay.style.display = "block";
+            break;
+        case YT.PlayerState.PLAYING:
+            overlay.style.display = "none";
+            break;
+        default: //console.log('default');
+    }
+}
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <div class="wrap">
+    <div id="player" data-src="u1zgFlCw8Aw"></div>
+    <div class="title">
+      Hide this div when video starts playing and show it when video is paused
+    </div>
+ </div>
+
+ <!--
+ https://stackoverflow.com/questions/36448433/hide-the-div-when-youtube-video-is-playing
+ http://jsfiddle.net/m7g83zqk/
+ -->
+  </body>
+</html>

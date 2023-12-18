@@ -1,0 +1,93 @@
+<html lang="en" dir="ltr">
+  <head>
+<script src="https://geo.dailymotion.com/libs/player/x5bqy.js"></script>
+<style media="screen">
+  .container {
+      width: 420px;
+      height: 520px; /*height of the text banner overlay*/
+      top: 30px;
+      position: relative;
+      }
+
+
+    .info {
+      width: 100%;
+      height: 235px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right:0;
+      color: black;
+      text-align:center;
+      background:rgba(10, 10, 0, 1) ;
+      /*background:rgba(90, 120, 220, 0.7) ;
+      background-image: url(https://storage.googleapis.com/dailymotion-support-sandbox/pk/img/play_button.jpg);
+      background-repeat: no-repeat;*/
+      display: block;
+      z-index: 5;
+    }
+
+.info img {
+
+}
+</style>
+  </head>
+ <body>
+<div class="container">
+          <div id="dm-player"></div>
+            <div class="info">
+            <img src="https://storage.googleapis.com/dailymotion-support-sandbox/pk/img/play_button.jpg" alt="play" style="width:235px" onclick="playVideo()">
+          </div>
+          </div>
+  </body>
+<script type="text/javascript">
+  dailymotion
+  .createPlayer('dm-player', {
+      video: 'x873541',
+      params: {
+      //startTime: 1,
+      mute: true,
+      },
+    })
+.then((player) => {
+  player.on(dailymotion.events.PLAYER_START, callback)
+  player.on(dailymotion.events.VIDEO_PAUSE, divAppear)
+  player.on(dailymotion.events.VIDEO_PLAY, callback)
+})
+//.then((player) => player.on(dailymotion.events.VIDEO_PAUSE, divAppear))
+.catch((e) => console.error(e));
+
+
+function callback(state) {
+  console.log("%cReceived PLAYER_START event. Current state is:",'color: green; background: yellow; font-size: 20px');
+  var overlay = document.querySelector(".info");
+  overlay.style.display = "none";
+
+}
+
+
+/*
+dailymotion
+  .getPlayer('dm-player')
+.then((player) => player.on(dailymotion.events.VIDEO_PAUSE, divAppear))
+.catch((e) => console.error(e));
+*/
+
+function divAppear(state) {
+  console.log("%cReceived VIDEO_PAUSE event. Current state is:", 'color: yellow; background: green; font-size: 15px', state);
+  var overlay = document.querySelector(".info");
+  overlay.style.display = "inline-block";
+}
+
+
+function playVideo() {
+  console.log("on click 1233")
+  dailymotion
+    .getPlayer()
+    .then((player) => {
+      player.play()
+  })
+}
+
+</script>
+</html>

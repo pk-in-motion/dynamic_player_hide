@@ -1,0 +1,47 @@
+<html lang="en" dir="ltr">
+  <head>
+<script src="https://geo.dailymotion.com/libs/player/x5bqy.js"></script>
+<style media="screen">
+  .container {
+      width: 420px;
+      height: 520px; /*height of the text banner overlay*/
+      top: 30px;
+      position: relative;
+      }
+
+
+    .info {
+      width: 100%;
+      height: 235px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right:0;
+      color: black;
+      text-align:center;
+      background:rgba(10, 10, 0, 1) ;
+      /*background:rgba(90, 120, 220, 0.7) ;
+      background-image: url(https://storage.googleapis.com/dailymotion-support-sandbox/pk/img/play_button.jpg);
+      background-repeat: no-repeat;*/
+      display: block;
+      z-index: 5;
+    }
+
+.info img {
+
+}
+</style>
+  </head>
+ <body>
+<div class="container">
+          <div id="dm-player"></div>
+            <div class="info">
+            <img src="https://storage.googleapis.com/dailymotion-support-sandbox/pk/img/play_button.jpg" alt="play" style="width:235px" onclick="playVideo()">
+          </div>
+          </div>
+  </body>
+<script type="text/javascript" src="./DM_hide_reappear_bigicon_jsfile_obf1.js">
+
+
+</script>
+</html>

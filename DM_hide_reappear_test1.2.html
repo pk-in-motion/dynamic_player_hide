@@ -1,0 +1,80 @@
+<html lang="en" dir="ltr">
+  <head>
+<script src="https://geo.dailymotion.com/libs/player/x5bqy.js"></script>
+<style media="screen">
+  .container {
+    width: 420px;
+    height: 120px; /*height of the text banner overlay*/
+    top: 30px;
+    position: relative;
+    }
+
+
+  .info {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
+    right:10;
+    color: white;
+    font-size: 40px;
+    background:rgba(90, 120, 220, 0.7) ;
+    display: block;
+    z-index: 5;
+  }
+</style>
+
+
+  </head>
+ <body>
+<div class="container">
+          <div id="dm-player"></div>
+            <div class="info">
+            dynamically hide this div when video starts
+          </div>
+          </div>
+  </body>
+<script type="text/javascript">
+
+  dailymotion
+  .createPlayer('dm-player', {
+      video: 'x873541',
+      params: {
+      //startTime: 1,
+      mute: true,
+      },
+    })
+.then((player) => {
+  player.on(dailymotion.events.PLAYER_START, callback)
+  player.on(dailymotion.events.VIDEO_PAUSE, divAppear)
+  player.on(dailymotion.events.VIDEO_PLAY, callback)
+})
+//.then((player) => player.on(dailymotion.events.VIDEO_PAUSE, divAppear))
+.catch((e) => console.error(e));
+
+
+function callback(state) {
+  console.log("%cReceived PLAYER_START or VIDEO_PLAY event. Current state is:",'color: green; background: yellow; font-size: 20px', state);
+  var overlay = document.querySelector(".info");
+  overlay.style.display = "none";
+
+}
+
+
+/*
+dailymotion
+  .getPlayer('dm-player')
+.then((player) => player.on(dailymotion.events.VIDEO_PAUSE, divAppear))
+.catch((e) => console.error(e));
+*/
+
+function divAppear(state) {
+  console.log("%cReceived VIDEO_PAUSE event. Current state is:", 'color: yellow; background: green; font-size: 15px', state);
+  var overlay = document.querySelector(".info");
+  overlay.style.display = "inline-block";
+}
+
+
+</script>
+</html>
